@@ -1,0 +1,16 @@
+<!-- FORMULARIO REACTIVO BASICO -->
+<form [formGroup]="miFormulario">
+
+  <!-- previsualizacion de los valores del formulario -->
+  <h2>Datos en Vivo del Formulario</h2>
+  <!-- usamos un PIPE de angular tipo json para pasar objeto a json y mostrarlo -->
+  <p>{{ miFormulario.value | json }}</p>
+
+  <!-- Campos del formulario -->
+    <input matInput placeholder="Nombre" formControlName="nombre" />
+    <input matInput placeholder="Apellido" formControlName="apellidos" />
+    <input matInput placeholder="Email" formControlName="email" />
+    <input matInput placeholder="Telefono" formControlName="telefono" />
+    <input matInput placeholder="Direccion" formControlName="direccion" />
+
+</form>

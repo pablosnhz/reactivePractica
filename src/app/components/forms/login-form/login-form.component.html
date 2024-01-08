@@ -1,0 +1,10 @@
+
+<input [(ngModel)]="filtroNombre" placeholder="Buscar por nombre">
+<button (click)="searchCharacters()">Buscar</button>
+
+<div *ngFor="let usuario of listUser">
+  <h3>{{ usuario.id }}</h3>
+  <h2>{{ usuario.name }}</h2>
+  <p>Email: {{ usuario.email }} </p>
+  <img [src]="usuario.url" alt="{{ usuario.first_name }} {{ usuario.last_name }} Avatar">
+</div>
