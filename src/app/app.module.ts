@@ -11,6 +11,9 @@ import { FormularioComponent } from './components/forms/formulario/formulario.co
 import { FormularioAnidadoComponent } from './components/forms/formulario-anidado/formulario-anidado.component';
 import { FormularioArrayComponent } from './components/forms/formulario-array/formulario-array.component';
 import { FormularioValidadoComponent } from './components/forms/formulario-validado/formulario-validado.component';
+import { CommonModule } from '@angular/common';
+import { FormularioNuevoComponent } from './pagesForms/formulario/formulario.component';
+import { FormularioAnidadoNuevoComponent } from './pagesForms/formulario-anidado/formulario-anidado.component';
 
 
 @NgModule({
@@ -20,15 +23,15 @@ import { FormularioValidadoComponent } from './components/forms/formulario-valid
     FormularioAnidadoComponent,
     FormularioArrayComponent,
     FormularioValidadoComponent,
+    FormularioNuevoComponent,
+    FormularioAnidadoNuevoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-
-
-
     FormsModule,
-
+    CommonModule,
+    // Importamos el reactive para trabajar con formularios reactivo
     ReactiveFormsModule,
     BrowserAnimationsModule,
 

@@ -1,27 +1,16 @@
 # ReactivePracitca
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
+REACTIVE FORMS
+Antes de empezar a que importar en el modulo principal el ReactiveFormsModule, para reaccionar a eventos o cambios del usuario
 
-## Development server
+FORMULARIO
+para empezar importamos FormBuilder, FormGroup en nuestro ts y llamamos al FormBuilder en el constructor, lo inyectamos, lo llamamos en el constructor. Iniciamos con los campos dentro del ngOnInit mediante un group y para mostrar los datos en consola, ver los cambios, nos suscribimos.
+Nos vamos a suscribir al valuechanges para ver los cambios en consola.
+Llamamos al formgroup mediante la variable que obtiene los datos que inicialice vacios, estos con el form se mostraran en pantalla y generamos un pipe con la variable.value de tipo json para obtener esos datos y con el changesvalue que habia puesto en el ts para mostrar los datos segun los cambios que haya.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Bueno que hicimos? importamos el reactive forms en el modulo principal para usarlo en todo el proyecto, luego en el FORMULARIO, en el ts importamos FormsBuilder para hacer uso del formulario y FormsGroup el cual va a tener los datos tipo string como para completar. Creamos una variable la cual va a tener FormGroup donde van a estar guardados los datos y el FormsBuilder lo declaramos en el constructor para traerlo y usarlo.
+Al hacer esto creamos un formGroup con la variable la cual nos va a dar margen a usar las propiedades de datos nombre, apellido... y los inputs los asociamos a eso que declaramos en el ts con las propiedades vacias, lo hacemos con el mismo nombre que pusimos en el ts dentro de un formControlName que tiene que coincidir como lo declare en el ts.
+Despues nos vamos a suscribir para detectar los cambios por medio del console.log, principal para mostrar estos datos tambien creamos un pipe el cual nos va mostrar el valor como un json, con los valores misFormularios.value | json
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+FORMULARIO ANIDADO
+Realizamos las importaciones del FormBuilder y del FormGroup, implementamos el OnInit, en el constructor declaramos el formBuilder y tambien definimos una variable de tipo FormGroup para inicializarla vacia y despues ponerle los valores vacios.
