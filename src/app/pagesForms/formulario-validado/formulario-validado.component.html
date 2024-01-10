@@ -1,1 +1,53 @@
-<p>formulario-validado works!</p>
+<form [formGroup]="miFormularioValidados" (submit)="enviarFormulario()">
+
+  <h3>Datos en vivo del formulario:</h3>
+  <pre> {{ miFormularioValidados.valueChanges | async | json  }}</pre>
+
+  <!-- campos de formulario + mensajes de errror por validacion -->
+  <input placeholder="Nombre" formControlName="nombre">
+  <div *ngIf="nombre?.errors?.['required'] && nombre?.touched">
+    <p [ngStyle]="{color: 'red'}">El campo es obligatorio</p>
+  </div>
+
+  <!-- APELLIDO -->
+  <input placeholder="Apellido" formControlName="apellidos">
+
+  <!-- EDAD -->
+  <input type="number" placeholder="Edad" formControlName="edad">
+  <div *ngIf="edad?.errors?.['required'] && edad?.touched">
+    <p [ngStyle]="{color: 'red'}">El campo es obligatorio</p>
+  </div>
+  <div *ngIf="edad?.errors?.['min'] && edad?.touched">
+    <p [ngStyle]="{color: 'red'}">No puede ser menor de 18. No puede registrarte con {{edad?.errors?.['min'].actual}}</p>
+  </div>
+  <div *ngIf="edad?.errors?.['max'] && edad?.touched">
+    <p [ngStyle]="{color: 'red'}">No puede ser mayor a 99. No puede registrarte con {{edad?.errors?.['max'].actual}}</p>
+  </div>
+
+  <!-- EMAIL -->
+  <input placeholder="Email" formControlName="email">
+  <div *ngIf="email?.errors?.['required'] && email?.touched">
+    <p [ngStyle]="{color: 'red'}">El campo email es obligatorio</p>
+  </div>
+  <div *ngIf="email?.errors?.['email'] && email?.touched">
+    <p [ngStyle]="{color: 'red'}">El campo email es obligatorio</p>
+  </div>
+
+  <!-- PASSWORD -->
+  <input type="password" placeholder="Password" formControlName="password">
+  <div *ngIf="password?.errors?.['required'] && password?.touched">
+    <p [ngStyle]="{color: 'red'}">El campo password es obligatorio</p>
+  </div>
+  <div *ngIf="password?.errors?.['pattern'] && password?.touched">
+    <p [ngStyle]="{color: 'red'}">El campo email es obligatorio</p>
+  </div>
+
+  <!-- ACEPTA -->
+  <input type="checkbox" formControlName="acepta">Aceptar
+  <div *ngIf="acepta?.errors?.['required'] && acepta?.touched">
+    <p [ngStyle]="{color: 'red'}">Debes aceptar los terminos</p>
+  </div>
+
+<!-- BOTON DE SUBMIT, SE ACTIVA CUANDO EL FORMULARIO ES VALIDO -->
+  <button type="submit" [disabled]="miFormularioValidados.invalid">Enviar</button>
+</form>

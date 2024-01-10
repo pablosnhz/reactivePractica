@@ -13,7 +13,9 @@ import { FormularioArrayComponent } from './components/forms/formulario-array/fo
 import { FormularioValidadoComponent } from './components/forms/formulario-validado/formulario-validado.component';
 import { CommonModule } from '@angular/common';
 import { FormularioNuevoComponent } from './pagesForms/formulario/formulario.component';
-import { FormularioAnidadoNuevoComponent } from './pagesForms/formulario-anidado/formulario-anidado.component';
+import { FormularioAnidadoNuevoComponent } from './pagesForms/formulario-anidado/formulario-anidado.components';
+import { FormularioArrayNuevoComponent } from './pagesForms/formulario-array/formulario-array.component';
+import { FormularioValidadoNuevoComponent } from './pagesForms/formulario-validado/formulario-validado.component';
 
 
 @NgModule({
@@ -23,8 +25,11 @@ import { FormularioAnidadoNuevoComponent } from './pagesForms/formulario-anidado
     FormularioAnidadoComponent,
     FormularioArrayComponent,
     FormularioValidadoComponent,
+
     FormularioNuevoComponent,
-    FormularioAnidadoNuevoComponent
+    FormularioAnidadoNuevoComponent,
+    FormularioArrayNuevoComponent,
+    FormularioValidadoNuevoComponent
   ],
   imports: [
     BrowserModule,
