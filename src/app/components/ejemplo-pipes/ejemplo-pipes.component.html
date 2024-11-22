@@ -1,0 +1,53 @@
+<h1>Ejemplos PIPES nativos de angular</h1>
+
+<!-- fechas -->
+<h2>Pipes para fechas</h2>
+<p>Mi cumpleanos sin PIPE es: {{ dob }}</p>
+<p>Mi cumpleanos con PIPE DATE basico es: {{ dob | date }}</p>
+<p>Mi cumpleanos con PIPE DATE 'dd/MM/yyyy': {{ dob | date: 'dd/MM/yyyy' }}</p>
+
+<p>Mi cumpleanos con PIPE DATE Short es: {{ dob | date: 'shortDate' }}</p>
+<p>Mi cumpleanos con PIPE DATE Full es: {{ dob | date: 'fullDate' }}</p>
+
+<p>Mi cumpleanos con PIPE DATE Short/Full: {{ dob | date: dateFormat }}</p>
+<button (click)="cambiarFormato()">Cambiar formato {{ !cambio ? 'Date' : 'Full' }}</button>
+
+
+<!-- Mayusculas minisculas -->
+<p>Bienvenido, {{ nombre | uppercase }}</p>
+<!-- <p>Nombre de usuario, @ {{ nombre | lowercase }} </p> -->
+
+<!-- combinacion de pipes -->
+<p>Mi cumpleanos con PIPE DATE Short/Full MAYUS es: {{ dob | date: dateFormat | uppercase}}</p>
+<p>Mi cumpleanos con PIPE DATE Short/Full MAYUS es: {{ dob | date: dateFormat | lowercase}}</p>
+
+
+<!-- pipe personalizado (multiplica)-->
+<p>Resultado: {{ 2 | multiplica: 10 }} puntos</p>
+
+<!-- pipe personalizado (calcularPuntuacion)-->
+<p>{{ jugador1 | calcularPuntacion }}</p>
+<p>{{ jugador2 | calcularPuntacion }}</p>
+
+
+<!-- DECIMALES -->
+<p> PI (3 decimales) {{ numero_PI | number: '.3-3' }} </p>
+<p> PI (5 decimales) {{ numero_PI | number: '5.8-8' }} </p>
+<p> PI (2 enteros y 8 decimales) {{ numero_PI | number: '2.8-8' }} </p>
+
+<!-- PIPE MONEDA -->
+<p>Precio del carrito: {{ precioCarrito | currency: 'ARS' }}</p>
+<p>Precio del carrito: {{ precioCarrito | currency: 'USD' }}</p>
+<p>Precio del carrito: {{ precioCarrito | currency: 'EUR':true: '.3-3' }}</p>
+
+<!-- JSON PIPE -->
+<p> {{ persona | json }} </p>
+
+<!-- PORCENTAJE -->
+
+<p>Porcentaje obtenido {{ cantidad | percent }}</p>
+
+
+<!-- SLICES -->
+
+<p>Texto demasiado largo: {{ textoLargo | slice: 1:10 }}...</p>

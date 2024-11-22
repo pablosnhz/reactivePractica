@@ -45,3 +45,11 @@ Y generamos un metodo submit para el formulario mediante una funcion, enviarForm
 traemos todo esos inputs al html como venia haciendo mediante formControlName, bien sabiendo eso mediante ngif tenemos que aplicar los requisitos de los validators que hicimos referencia, que tenia que se mayor de, menor de, que se cumplan condiciones, con el required, <div \*ngIf="edad?.errors?.['required'] && edad?.touched"> edad que esta dentro de esta etiqueta viene de todas esos get que le hicimos a cada uno de los valores dentro del formGroup para hacer condiciones si se cumple bien pero en el caso de que no sea asi, se va mostrar un mensaje. Podriamos mostrar dos mensajes, dos if diferentes separados, el cual si no es min muestra un mensaje, si no es max otro, pattern otro, segun lo que hayamos especificado en los validators.
 
 Para terminar el boton type submit donde se van a mandar todo, [disabled]="miFormularioValidado.invalid generamos esto que para hasta que no se cumpla todas las condiciones del formulario se cumpla o todo lo que yo haga hecho un required voy a poder enviar el formulario.
+
+---
+
+PIPES
+Como habiamos visto acerca de los pipes donde llamamos dentro de una interpolacion donde viene un valor de ts y lo pasamos, los valores a json {{ olaola | json }}.
+Basicamente un pipe genera transformaciones de datos los cuales se van a ver reflejados en el html, donde se podrian poner datos de tipo fecha, donde tambien se puede hacer uso de lowercase/uppercase, con dateFormat es algo que cree para cambiar mediante un boton los datos cambian de fullDate puede pasar a shortDate es un ejemplo, no llegue a cosas muy complejas como para probar.
+Lo mejor, lo principal podriamos decir, el crear pipes | ng g p pipes/multiplicar | dentro de ese pipe generamos dentro del transform la multiplicacion, para asi luego usar el name: multiplica la llamamos en el html <p>Resultado: {{ 2 | multiplica: 10 }} puntos</p> , podria hacer otro pipe para generar un foreach, de resultados de un jugador y obtener la suma de todos los puntos que haya.
+Podemos tener tambien cambios signos de las diversas monedas, mostrar decimales y enteros, agregar el porcentaje.

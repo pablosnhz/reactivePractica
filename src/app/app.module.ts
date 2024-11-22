@@ -16,6 +16,18 @@ import { FormularioNuevoComponent } from './pagesForms/formulario/formulario.com
 import { FormularioAnidadoNuevoComponent } from './pagesForms/formulario-anidado/formulario-anidado.components';
 import { FormularioArrayNuevoComponent } from './pagesForms/formulario-array/formulario-array.component';
 import { FormularioValidadoNuevoComponent } from './pagesForms/formulario-validado/formulario-validado.component';
+import { EjemploPipesComponent } from './components/ejemplo-pipes/ejemplo-pipes.component';
+import { MultiplicaPipe } from './pipes/multiplica.pipe';
+import { CalcularPuntacionPipe } from './pipes/calcular-puntacion.pipe';
+
+// LOCALE PARA PIPES
+import { LOCALE_ID } from '@angular/core';
+import localeES from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+import { TodolistComponent } from './signals/todolist/todolist.component';
+import { PruebaComponent } from './signals/prueba/prueba.component';
+// registramos el LOCALE_ID de 'es' para usarlo en los pipes
+registerLocaleData(localeES);
 
 
 @NgModule({
@@ -29,7 +41,16 @@ import { FormularioValidadoNuevoComponent } from './pagesForms/formulario-valida
     FormularioNuevoComponent,
     FormularioAnidadoNuevoComponent,
     FormularioArrayNuevoComponent,
-    FormularioValidadoNuevoComponent
+    FormularioValidadoNuevoComponent,
+    EjemploPipesComponent,
+
+    // pipes
+    MultiplicaPipe,
+     CalcularPuntacionPipe,
+     TodolistComponent,
+     PruebaComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -42,7 +63,12 @@ import { FormularioValidadoNuevoComponent } from './pagesForms/formulario-valida
 
     MatFormFieldModule,
   ],
-  providers: [],
+  providers: [
+    // registrar el locale de ES para que los PIPES salgan en espanol
+    {
+      provide: LOCALE_ID, useValue: 'es'
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
