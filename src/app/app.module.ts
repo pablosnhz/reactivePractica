@@ -26,6 +26,7 @@ import localeES from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { TodolistComponent } from './signals/todolist/todolist.component';
 import { PruebaComponent } from './signals/prueba/prueba.component';
+import { RxjsComponent } from './signals/rxjs/rxjs/rxjs.component';
 // registramos el LOCALE_ID de 'es' para usarlo en los pipes
 registerLocaleData(localeES);
 
@@ -48,7 +49,8 @@ registerLocaleData(localeES);
     MultiplicaPipe,
      CalcularPuntacionPipe,
      TodolistComponent,
-     PruebaComponent
+     PruebaComponent,
+     RxjsComponent
 
 
   ],
