@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, fromEvent, interval, map, of, Subject, timer } from 'rxjs';
+import { filter, fromEvent, interval, map, mapTo, of, share, Subject, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs',
@@ -12,20 +12,55 @@ export class RxjsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // ! MAP y FILTER haciendo uso de pipe y of
-    const nums = of(1, 2, 3, 4, 5).pipe(
-      filter((n: number) => {
-        // obteniendo pares
-        return n % 2 === 0;
-      }),
-      map((n: number) => {
-        return n * n;
-      })
-    );
+    // ! SHARE para compartir observables
+    const time = timer(1000);
+    const obs = time.pipe(
+      tap(() => console.log('Procesado'),
+      mapTo('Completado')
+      )
+    )
 
-    nums.subscribe((n: number) => {
-      console.log(n);
-    });
+    const subs01 = obs.subscribe({
+      next: (n) => console.log(n)
+    })
+    const subs02 = obs.subscribe({
+      next: (n) => console.log(n)
+    })
+
+    const shareObs = obs.pipe(share());
+    console.log('shareObs');
+    const subs03 = shareObs.subscribe(
+      val => console.log(val)
+    )
+
+
+
+    // ! TAP espia de observable
+    // const clicks = fromEvent(document, 'click');
+    // const positions = clicks.pipe(
+    //   tap(ev => console.log('Procesado: ' + ev),
+    //     err => console.error('Error: ' + err),
+    //     () => console.log('Completado')
+    //   )
+    // )
+    // positions.subscribe({
+    //   next: (n) => console.log(n)
+    // })
+
+    // ! MAP y FILTER haciendo uso de pipe y of
+    // const nums = of(1, 2, 3, 4, 5).pipe(
+    //   filter((n: number) => {
+    //     // obteniendo pares
+    //     return n % 2 === 0;
+    //   }),
+    //   map((n: number) => {
+    //     return n * n;
+    //   })
+    // );
+
+    // nums.subscribe((n: number) => {
+    //   console.log(n);
+    // });
 
 
     // ! INTERVAL o Timer para emitir un valor cada cierto tiempo
