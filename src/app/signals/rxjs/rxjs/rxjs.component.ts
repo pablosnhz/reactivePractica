@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, fromEvent, interval, map, mapTo, of, share, Subject, tap, timer } from 'rxjs';
+import { concat, filter, from, fromEvent, interval, map, mapTo, merge, of, range, scan, share, startWith, Subject, switchMap, take, takeWhile, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs',
@@ -12,26 +12,75 @@ export class RxjsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // ! switchMap interrumpe los observables anteriores mientras las mapea
+    // fromEvent(document, 'click').pipe(
+    //   switchMap(() => interval(1000))
+    // ).subscribe(
+    //   (console.log)
+    // )
+
+    // ejemplo para el template
+    const remainingLabel = document.getElementById('remaining');
+    const pauseButton = document.getElementById('pause');
+    const resumeButton = document.getElementById('resume');
+
+    if (pauseButton && resumeButton && remainingLabel) {
+      const pause$ = fromEvent(pauseButton, 'click').pipe(mapTo('paused'));
+      const resume$ = fromEvent(resumeButton, 'click').pipe(mapTo('resumed'));
+
+      const timer$ = interval(1000).pipe(
+        scan((acc, curr) => (curr ? curr + acc : acc),10 ),
+        takeWhile((val) => val >= 0)
+      );
+
+      const state$ = merge(
+        pause$,
+        resume$.pipe(startWith('resumed'))
+      ).pipe(
+        switchMap((state) => (state === 'paused' ? of(null) : timer$))
+      );
+
+      state$.subscribe((time) => {
+        if (time !== null) {
+          remainingLabel.textContent = time.toString();
+        }
+      });
+    } else {
+      console.error('One of the buttons or the label is not found in the DOM');
+    }
+
+
+    // ! CONCAT
+    // const timer = interval(1000).pipe(
+    //   take(3)
+    // );
+    // const rango = range(1, 10);
+
+    // const result = concat(timer, rango);
+    // result.subscribe(
+    //   x => console.log(x)
+    // )
+
     // ! SHARE para compartir observables
-    const time = timer(1000);
-    const obs = time.pipe(
-      tap(() => console.log('Procesado'),
-      mapTo('Completado')
-      )
-    )
+    // const time = timer(1000);
+    // const obs = time.pipe(
+    //   tap(() => console.log('Procesado'),
+    //   mapTo('Completado')
+    //   )
+    // )
 
-    const subs01 = obs.subscribe({
-      next: (n) => console.log(n)
-    })
-    const subs02 = obs.subscribe({
-      next: (n) => console.log(n)
-    })
+    // const subs01 = obs.subscribe({
+    //   next: (n) => console.log(n)
+    // })
+    // const subs02 = obs.subscribe({
+    //   next: (n) => console.log(n)
+    // })
 
-    const shareObs = obs.pipe(share());
-    console.log('shareObs');
-    const subs03 = shareObs.subscribe(
-      val => console.log(val)
-    )
+    // const shareObs = obs.pipe(share());
+    // console.log('shareObs');
+    // const subs03 = shareObs.subscribe(
+    //   val => console.log(val)
+    // )
 
 
 
