@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { concat, delay, filter, forkJoin, from, fromEvent, interval, map, mapTo, merge, of, range, scan, share, startWith, Subject, switchMap, take, takeWhile, tap, timer } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-rxjs',
@@ -8,19 +9,31 @@ import { concat, delay, filter, forkJoin, from, fromEvent, interval, map, mapTo,
 })
 export class RxjsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
 
     // ! forkJoin combinacion de observables
-    const fork = forkJoin(
-      of('hola'),
-      of('mundo').pipe(delay(1000)),
-      interval(1000).pipe(take(2))
-    )
-    fork.subscribe(
-      val => console.log(val)
-    )
+    // const fork = forkJoin(
+    //   of('hola'),
+    //   of('mundo').pipe(delay(1000)),
+    //   interval(1000).pipe(take(2))
+    // )
+    // fork.subscribe(
+    //   val => console.log(val)
+    // )
+
+    // otro ejemplo real
+    const src = forkJoin({
+      google: this.http.get('https://api.example.com/google'),
+      bing: this.http.get('https://api.example.com/bing')
+    });
+
+    src.subscribe((results) => {
+      console.log('Google data:', results.google);
+      console.log('Bing data:', results.bing);
+    });
+
 
     // ! switchMap interrumpe los observables anteriores mientras las mapea
     // fromEvent(document, 'click').pipe(
