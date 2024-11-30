@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { concat, filter, from, fromEvent, interval, map, mapTo, merge, of, range, scan, share, startWith, Subject, switchMap, take, takeWhile, tap, timer } from 'rxjs';
+import { concat, delay, filter, forkJoin, from, fromEvent, interval, map, mapTo, merge, of, range, scan, share, startWith, Subject, switchMap, take, takeWhile, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs',
@@ -12,6 +12,16 @@ export class RxjsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // ! forkJoin combinacion de observables
+    const fork = forkJoin(
+      of('hola'),
+      of('mundo').pipe(delay(1000)),
+      interval(1000).pipe(take(2))
+    )
+    fork.subscribe(
+      val => console.log(val)
+    )
+
     // ! switchMap interrumpe los observables anteriores mientras las mapea
     // fromEvent(document, 'click').pipe(
     //   switchMap(() => interval(1000))
@@ -20,34 +30,34 @@ export class RxjsComponent implements OnInit {
     // )
 
     // ejemplo para el template
-    const remainingLabel = document.getElementById('remaining');
-    const pauseButton = document.getElementById('pause');
-    const resumeButton = document.getElementById('resume');
+    // const remainingLabel = document.getElementById('remaining');
+    // const pauseButton = document.getElementById('pause');
+    // const resumeButton = document.getElementById('resume');
 
-    if (pauseButton && resumeButton && remainingLabel) {
-      const pause$ = fromEvent(pauseButton, 'click').pipe(mapTo('paused'));
-      const resume$ = fromEvent(resumeButton, 'click').pipe(mapTo('resumed'));
+    // if (pauseButton && resumeButton && remainingLabel) {
+    //   const pause$ = fromEvent(pauseButton, 'click').pipe(mapTo('paused'));
+    //   const resume$ = fromEvent(resumeButton, 'click').pipe(mapTo('resumed'));
 
-      const timer$ = interval(1000).pipe(
-        scan((acc, curr) => (curr ? curr + acc : acc),10 ),
-        takeWhile((val) => val >= 0)
-      );
+    //   const timer$ = interval(1000).pipe(
+    //     scan((acc, curr) => (curr ? curr + acc : acc),10 ),
+    //     takeWhile((val) => val >= 0)
+    //   );
 
-      const state$ = merge(
-        pause$,
-        resume$.pipe(startWith('resumed'))
-      ).pipe(
-        switchMap((state) => (state === 'paused' ? of(null) : timer$))
-      );
+    //   const state$ = merge(
+    //     pause$,
+    //     resume$.pipe(startWith('resumed'))
+    //   ).pipe(
+    //     switchMap((state) => (state === 'paused' ? of(null) : timer$))
+    //   );
 
-      state$.subscribe((time) => {
-        if (time !== null) {
-          remainingLabel.textContent = time.toString();
-        }
-      });
-    } else {
-      console.error('One of the buttons or the label is not found in the DOM');
-    }
+    //   state$.subscribe((time) => {
+    //     if (time !== null) {
+    //       remainingLabel.textContent = time.toString();
+    //     }
+    //   });
+    // } else {
+    //   console.error('One of the buttons or the label is not found in the DOM');
+    // }
 
 
     // ! CONCAT
