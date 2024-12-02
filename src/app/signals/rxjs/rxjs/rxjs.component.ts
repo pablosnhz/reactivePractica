@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { concat, delay, filter, forkJoin, from, fromEvent, interval, map, mapTo, merge, of, range, scan, share, startWith, Subject, switchMap, take, takeWhile, tap, timer } from 'rxjs';
+import { concat, concatMap, delay, filter, forkJoin, from, fromEvent, interval, map, mapTo, merge, of, range, scan, share, startWith, Subject, switchMap, take, takeWhile, tap, timer } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -13,6 +13,20 @@ export class RxjsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // ! concatMap fuerza la ejecucion de un array con su orden [1,3,2] en ese orden
+    // los of 2000, 1000, 3000 son los segundos que tardaria en aparecer en pantalla por consola
+    // pero llegan primero el 2000, 1000, 3000 en ese orden
+    const source = of(2000, 1000, 3000);
+
+    const obsConcatMap = source.pipe(
+      // si cambiamos de concat map a merge en vez de devolver 2000,1000,3000 devuelve en orden 1000,2000,3000
+      concatMap(val => of(`Valor: ${val}`).pipe(delay(val)))
+    );
+
+    obsConcatMap.subscribe(
+      val => console.log(val)
+    )
+
     // ! forkJoin combinacion de observables
     // const fork = forkJoin(
     //   of('hola'),
@@ -24,15 +38,15 @@ export class RxjsComponent implements OnInit {
     // )
 
     // otro ejemplo real
-    const src = forkJoin({
-      google: this.http.get('https://api.example.com/google'),
-      bing: this.http.get('https://api.example.com/bing')
-    });
+    // const src = forkJoin({
+    //   google: this.http.get('https://api.example.com/google'),
+    //   bing: this.http.get('https://api.example.com/bing')
+    // });
 
-    src.subscribe((results) => {
-      console.log('Google data:', results.google);
-      console.log('Bing data:', results.bing);
-    });
+    // src.subscribe((results) => {
+    //   console.log('Google data:', results.google);
+    //   console.log('Bing data:', results.bing);
+    // });
 
 
     // ! switchMap interrumpe los observables anteriores mientras las mapea
